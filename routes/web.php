@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Contact;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', function () {
+    echo "this is home page";
+});
+
+Route::get('/about', function () {
+    return view('about');
+})->middleware('Age');
+
+Route::get('/contact',[Contact::class, 'index']);
