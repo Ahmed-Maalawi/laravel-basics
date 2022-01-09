@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Contact;
 use Illuminate\Support\Facades\Route;
-use app\models\user;
+use app\models\user; 
+// use Illuminate\Support\Facades\DB;  //used for query builder
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +30,16 @@ Route::get('/about', function () {
 });
 
 Route::get('/contact',[Contact::class, 'index']);
+
+Route::post('/category/add', [CategoryController::class, 'addCate'])->name('store.category');
+
+// category Controller
+
+Route::get('/category/all',[CategoryController::class, 'allCat'])->name('all.category');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+
+    // $users = DB::table('users')->get();
 
     $users = User::all();
 
