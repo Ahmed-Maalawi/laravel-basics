@@ -24,6 +24,9 @@ Route::get('/home', function () {
 
 Route::get('/about', function () {
     return view('about');
-})->middleware('Age');
+});
 
 Route::get('/contact',[Contact::class, 'index']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

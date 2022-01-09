@@ -45,6 +45,11 @@
                     </svg> -->
 
                     <h1 style="color:#FFF">about</h1>
+                    <div style="color:#FFF">
+                        <a href="{{url('/')}}">Home</a> |
+                        <a href="{{URL::to('/about')}}">About</a> |
+                        <a href="{{URL::to('/contact')}}">contact</a> |
+                    </div>
                 </div>
 
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
