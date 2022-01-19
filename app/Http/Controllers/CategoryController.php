@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use Auth;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -13,8 +12,8 @@ class CategoryController extends Controller
 
     public function allCat()
     {
-
-        return view('admin.category.index');
+        $categories = Category::latest()->paginate(3);
+        return view('admin.category.index', compact('categories'));
     }
 
     public function addCate(Request $request) {
@@ -34,13 +33,15 @@ class CategoryController extends Controller
         //     'deleted_at' => Carbon::now(),
         // ]);
 
-        $category = new Category;
+    // -------------------------------------
+
+$category = new Category;
 
         $category->category_name = $request->category_name;
         $category->user_id = Auth::user()->id;
 
         $category->save();
-           
+
 
         return redirect()->back()->with('success','Category Added Successfull');
     }

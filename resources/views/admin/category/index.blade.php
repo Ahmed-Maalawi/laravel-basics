@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-           All Category <b>  </b>
-            <b style="float:right;">
-                Total Category <span class="badge bg-danger"> </span>
-            </b>
+           All Category
+{{--            <b style="float:right;">--}}
+{{--                Total Category <span class="badge bg-danger"> {{count($categories)}} </span>--}}
+{{--            </b>--}}
         </h2>
     </x-slot>
 
@@ -13,34 +13,46 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
-
                         @if(session('success'))
-
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong> {{ session('success')}} </strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong> {{ session('success')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                         @endif
                         <div class="card-header">All Category</div>
                         <div class="card-body">
                         <table class="table">
                         <thead>
-                        <tr>
+                        <tr class="text-capitalize">
                             <th scope="col">Sl No</th>
-                            <th scope="col">cate.Name</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th scope="col">$category Name</th>
+                            <th scope="col">user</th>
+                            <th scope="col">created at</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        @foreach($categories as $category)
+                            <tr>
+                                <th scope="row">{{ $categories->firstItem()+$loop->index }}</th>
+                                <td>{{ $category->category_name }}</td>
+                                <td>{{ $category->user->name }}</td>
+                                <td>
+                                    @if($category->created_at == NULL)
+                                        <span class="text-danger">no data set</span>
+                                    @else
+                                        {{ $category->created_at->diffForHumans() }}
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{route}}" class="btn btn-info">edit</a>
+                                    <a href="" class="btn btn-danger">delete</a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                         </table>
+                            {{ $categories->links() }}
+
                         </div>
                     </div>
                 </div>
@@ -54,7 +66,6 @@
                                 <label for="category-name" class="form-label">category name</label>
                                 <input type="text" name="category_name" class="form-control" id="category-name">
                             </div>
-
                             @error('category_name')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror

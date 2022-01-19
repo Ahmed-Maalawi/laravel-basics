@@ -23,14 +23,14 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                        <tr>
+                        <tr class="text-capitalize">
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->created_at->diffForHumans() }}</td>
+                            <td>{{$user->created_at->diffForHumans()}}</td>
                         </tr>
                         @endforeach
-                        
+
                     </tbody>
                 </table>
             </div>

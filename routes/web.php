@@ -3,7 +3,9 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Contact;
 use Illuminate\Support\Facades\Route;
-use app\models\user; 
+use app\models\user;
+use Illuminate\Support\Facades\DB;
+
 // use Illuminate\Support\Facades\DB;  //used for query builder
 
 /*
@@ -39,10 +41,8 @@ Route::get('/category/all',[CategoryController::class, 'allCat'])->name('all.cat
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
-    // $users = DB::table('users')->get();
-
-    $users = User::all();
-
+     $users = User::all();
 
     return view('dashboard', compact('users'));
+
 })->name('dashboard');
