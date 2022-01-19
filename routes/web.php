@@ -46,3 +46,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard', compact('users'));
 
 })->name('dashboard');
+
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.id');
+Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');

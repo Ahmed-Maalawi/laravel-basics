@@ -46,4 +46,21 @@ $category = new Category;
         return redirect()->back()->with('success','Category Added Successfull');
     }
 
+
+    public function edit($id)
+    {
+        $category = Category::find($id);
+
+        return view('admin.category.edit', compact('category'));
+    }
+
+    public function update(request $request, $id)
+    {
+        $category = Category::find($id)->update([
+            'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return redirect()->route('all.category')->with('success', 'category updated successfully');
+    }
 }

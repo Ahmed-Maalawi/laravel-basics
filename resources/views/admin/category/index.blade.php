@@ -44,7 +44,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{route}}" class="btn btn-info">edit</a>
+                                    <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-secondary">edit</a>
                                     <a href="" class="btn btn-danger">delete</a>
                                 </td>
                             </tr>
@@ -69,7 +69,7 @@
                             @error('category_name')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
-                            <button type="submit" class="btn btn-primary">Add Category</button>
+                            <button type="submit" class="btn btn-outline-primary">Add Category</button>
                         </form>
                     </div>
                 </div>
