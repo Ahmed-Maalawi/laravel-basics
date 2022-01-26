@@ -36,16 +36,20 @@ Route::get('/contact',[Contact::class, 'index']);
 Route::post('/category/add', [CategoryController::class, 'addCate'])->name('store.category');
 
 // category Controller
+//---------------------
 
 Route::get('/category/all',[CategoryController::class, 'allCat'])->name('all.category');
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.id');
+Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::get('/softdelete/category/{id}', [CategoryController::class, 'softdelete'])->name('category.softdelete');
+Route::get('/category/restore/{id}', [CategoryController::class, 'restore'])->name('category.restore');
+Route::get('/destroy/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
-     $users = User::all();
+    $users = User::all();
 
     return view('dashboard', compact('users'));
 
 })->name('dashboard');
-
-Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.id');
-Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');

@@ -13,7 +13,10 @@ class CategoryController extends Controller
     public function allCat()
     {
         $categories = Category::latest()->paginate(3);
-        return view('admin.category.index', compact('categories'));
+        $trashCategories = Category::onlyTrashed()->latest()->paginate(1);
+
+
+        return view('admin.category.index', compact('categories', 'trashCategories'));
     }
 
     public function addCate(Request $request) {
@@ -33,15 +36,14 @@ class CategoryController extends Controller
         //     'deleted_at' => Carbon::now(),
         // ]);
 
-    // -------------------------------------
+        // -------------------------------------
 
-$category = new Category;
+        $category = new Category;
 
         $category->category_name = $request->category_name;
         $category->user_id = Auth::user()->id;
 
         $category->save();
-
 
         return redirect()->back()->with('success','Category Added Successfull');
     }
@@ -62,5 +64,26 @@ $category = new Category;
         ]);
 
         return redirect()->route('all.category')->with('success', 'category updated successfully');
+    }
+
+    public function softdelete($id) {
+
+        $delete = Category::find($id)->delete();
+
+        return redirect()->back()->with('success','Category SoftDeleted successfully');
+    }
+
+    public function restore($id) {
+
+        $restore = Category::withTrashed()->find($id)->restore();
+
+        return redirect()->back()->with('success', 'Category Restored Successfully');
+    }
+
+    public function destroy($id) {
+
+        $delete = Category::onlyTrashed()->find($id)->forceDelete();
+
+        return redirect()->back()->with('success', 'Category Deleted Successfully');
     }
 }

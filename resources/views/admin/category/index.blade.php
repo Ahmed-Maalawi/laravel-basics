@@ -25,7 +25,7 @@
                         <thead>
                         <tr class="text-capitalize">
                             <th scope="col">Sl No</th>
-                            <th scope="col">$category Name</th>
+                            <th scope="col">category Name</th>
                             <th scope="col">user</th>
                             <th scope="col">created at</th>
                         </tr>
@@ -45,7 +45,7 @@
                                 </td>
                                 <td>
                                     <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-secondary">edit</a>
-                                    <a href="" class="btn btn-danger">delete</a>
+                                    <a href="{{url('softdelete/category/'.$category->id)}}" class="btn btn-danger">delete</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -73,6 +73,47 @@
                         </form>
                     </div>
                 </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Deleted Category</div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <tr class="text-capitalize">
+                                    <th scope="col">Sl No</th>
+                                    <th scope="col">$category Name</th>
+                                    <th scope="col">user</th>
+                                    <th scope="col">created at</th>
+                                    <th scope="col">action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($trashCategories as $item)
+                                    <tr>
+                                        <th scope="row">{{ $trashCategories->firstItem()+$loop->index }}</th>
+                                        <td>{{ $item->category_name }}</td>
+                                        <td>{{ $item->user->name }}</td>
+                                        <td>
+                                            @if($item->created_at == NULL)
+                                                <span class="text-danger">no data set</span>
+                                            @else
+                                                {{ $item->created_at->diffForHumans() }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{url('category/restore/'.$item->id)}}" class="btn btn-secondary">Restore</a>
+                                            <a href="{{url('destroy/category/'.$item->id)}}" class="btn btn-danger">delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            {{ $trashCategories->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
