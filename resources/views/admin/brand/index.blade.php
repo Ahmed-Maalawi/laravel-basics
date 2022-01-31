@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="card text-capitalize">
                         @if(session('success'))
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                 <strong> {{ session('success')}} </strong>
@@ -43,7 +43,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('brand.edit', ['id' => $brand->id]) }}" class="btn btn-secondary">edit</a>
-                                            <a href="{{ route('brand.softdelete',['id' => $brand->id]) }}" class="btn btn-danger">delete</a>
+                                            <a href="{{ route('brand.delete',['id' => $brand->id]) }}" onclick="return confirm('Are You Sure To Delete This Brand ??')" class="btn btn-danger">delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

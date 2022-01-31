@@ -5,7 +5,7 @@ use App\Http\Controllers\Contact;
 use Illuminate\Support\Facades\Route;
 use app\models\user;
 use App\Http\Controllers\BrandController;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 
 // use Illuminate\Support\Facades\DB;  //used for query builder
 
@@ -51,7 +51,7 @@ Route::get('/brand/all', [BrandController::class, 'allBrands'])->name('all.brand
 Route::post('/brand/add', [BrandController::class, 'storeBrand'])->name('store.brand');
 Route::get('/brand/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
 Route::post('/brand/updated/{id}', [BrandController::class, 'update'])->name('brand.update');
-Route::get('/brand/softdelete/{id}', [BrandController::class, 'softdelete'])->name('brand.softdelete');
+Route::get('/brand/delete/{id}', [BrandController::class, 'Delete'])->name('brand.delete');
 
 
 
